@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="动态规划的思想" />
+    <meta property="og:title" content="动态规划的思想" />
+    <meta property="twitter:title" content="动态规划的思想" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="张鹏飞, zhaohuabing, Zhaohuabing, , 张鹏飞的网络日志, 张鹏飞的博客, Zhaohuabing Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
     <link rel="shortcut icon" href="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/favicon.ico">
 
-    <title>Posts-张鹏飞的博客 | Zhaohuabing Blog</title>
+    <title>动态规划的思想-张鹏飞的博客 | Zhaohuabing Blog</title>
 
-    <link rel="canonical" href="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/pengfeierzhang-hub/pengfeierzhang-hub.github.io/post/">
+    <link rel="canonical" href="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/pengfeierzhang-hub/pengfeierzhang-hub.github.io/post/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
 
     <link rel="stylesheet" href="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/css/iDisqus.min.css"/>
 	
@@ -158,14 +158,33 @@
 
 
 
-<header class="intro-header" style="background-image: url('/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/lake.jpeg')">
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/lake.jpeg')
+    }
+</style>
+<header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>flyer的博客 </h1>
-                    
-		    <span class="subheading">路在脚下，心向远方</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>动态规划的思想</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                flyer的博客
+                         
+                        on 
+                        Wednesday, April 8, 2020
+                        
+                        
+                        
+                    </span>
                 </div>
             </div>
         </div>
@@ -178,13 +197,134 @@
 <article>
     <div class="container">
         <div class="row">
+
             
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-         	
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-典型问题">1. 典型问题:</a></li>
+<li><a href="#2-思路">2. 思路</a></li>
+<li><a href="#3-关键点">3. 关键点</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<blockquote>
+<p>通常解决并理解一个动态规划问题需要以下 4 个步骤：
+- 利用递归回溯解决问题
+- 利用记忆表优化（自顶向下的动态规划）
+- 移除递归的部分（自底向上的动态规划）
+- 使用技巧减少时间和空间复杂度</p>
+</blockquote>
+
+<ul>
+<li>递归版的动态规划一般都是自顶向下，循环版的动态规划一般是自底向上。</li>
+<li>在递归和动态规划的递推，有的时候都可以使用记忆化搜索，进而避免进行重复计算。记忆化搜索一般是将已经计算过的存储起来，在进行下一次计算之前可以先进行判断是否已经计算过了，如果已经计算过了的话，就不再进行计算。在动规中，记忆化也可以用于不计算不需要的状态。</li>
+</ul>
+
+<h4 id="1-典型问题">1. 典型问题:</h4>
+
+<ul>
+<li>铺地板</li>
+<li>求最值（最优化）</li>
+
+<li><p><a href="https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/">https://leetcode-cn.com/problems/coin-change/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/</a></p>
+
+<h4 id="2-思路">2. 思路</h4></li>
+
+<li><p><code>字符串比较问题</code>考虑使动态规划经常出现在字符串的问题求解。因为大部分解决字符串的问题需要枚举指数级数量的情况。用动态规划</p></li>
+
+<li><p>动态规划经常出现在字符串的问题求解。因为大部分解决字符串的问题需要枚举指数级数量的情况。</p>
+
+<h4 id="3-关键点">3. 关键点</h4></li>
+
+<li><p>动态规划本身是一个自底向上的过程</p></li>
+
+<li><p>动态规划的本质也是穷举</p></li>
+
+<li><p>算法设计无非就是先思考“如何穷举”，然后再追求“如何聪明地穷举”。</p></li>
+
+<li><p>一维 数组或者二维 数组</p></li>
+
+<li><p>选与不选</p></li>
+
+<li><p>动态规划有的时候会和二分查找进行相结合，进一步进行优化动态规划的解法</p></li>
+
+<li><p><a href="https://www.cnblogs.com/jbelial/articles/2116074.html">背包问题</a></p></li>
+</ul>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://github.com/pengfeierzhang-hub/pengfeierzhang-hub.github.io/"><img src="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/favicon.png" />flyer的博客</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/reward/wechat-2.png"  id="pay-image"/>
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/js/reward.js"></script>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/pengfeierzhang-hub/pengfeierzhang-hub.github.io/post/entropy/" data-toggle="tooltip" data-placement="top" title="交叉熵">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
                 
 <div id="disqus-comment"></div>
 
@@ -238,7 +378,7 @@
                 <ul class="list-inline text-center">
                    
                    <li>
-                       <a href='/pengfeierzhang-hub/pengfeierzhang-hub.github.io/post/index.xml' rel="alternate" type="application/rss+xml" title="flyer的博客" >
+                       <a href='' rel="alternate" type="application/rss+xml" title="flyer的博客" >
                            <span class="fa-stack fa-lg">
                                <i class="fa fa-circle fa-stack-2x"></i>
                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
