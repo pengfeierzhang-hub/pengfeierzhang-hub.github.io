@@ -10,5 +10,15 @@
 	<atom:link href="https://pengfeierzhang-hub.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title></title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E8%B4%AA%E5%BF%83/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E8%B4%AA%E5%BF%83/</guid>
+      <description>Z国的货币系统包含面值1元、4元、16元、64元共计4种硬币，以及面值1024元的纸币。现在小Y使用1024元的纸币购买了一件价值为N N(0&amp;lt;N≤1024)的商品，请问最少他会收到多少硬币？ 输入描述: 一行，包含一个数N。 输出描述: 一行，包含一个数，表示最少收到的硬币数。
+N = int(input()) n = 1024 - N count = 0 if(n&amp;gt;=64): count += n//64 n = n%64 if(n&amp;lt;64 and n&amp;gt;=16): count += n//16 n = n%16 if(n&amp;lt;16 and n&amp;gt;=4): count += n//4 n = n%4 if(n&amp;lt;4 and n&amp;gt;=1): count += n n = 0 if(n==0): print(count)  </description>
+    </item>
+    
   </channel>
 </rss>
