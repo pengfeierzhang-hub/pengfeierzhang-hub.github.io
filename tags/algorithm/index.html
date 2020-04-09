@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="贪心" />
-    <meta property="og:title" content="贪心" />
-    <meta property="twitter:title" content="贪心" />
+    <meta name="title" content="Algorithm" />
+    <meta property="og:title" content="Algorithm" />
+    <meta property="twitter:title" content="Algorithm" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="张鹏飞, 张鹏飞的网络日志, 张鹏飞的博客, Zhangpengfei Blog, 博客, 个人网站">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>贪心-张鹏飞的博客 | pengfeierzhang Blog</title>
+    <title>Algorithm-张鹏飞的博客 | pengfeierzhang Blog</title>
 
-    <link rel="canonical" href="/post/%E8%B4%AA%E5%BF%83/">
+    <link rel="canonical" href="/tags/algorithm/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -160,33 +160,14 @@
 
 
 
-
-<style type="text/css">
-    header.intro-header {
-        background-image: url('/img/lake.jpeg')
-    }
-</style>
-<header class="intro-header">
+<header class="intro-header" style="background-image: url('/img/lake.jpeg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                    </div>
-                    <h1>贪心</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by 
-                        
-                                flyer的博客
-                         
-                        on 
-                        Wednesday, April 8, 2020
-                        
-                        
-                        
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>flyer的博客 </h1>
+                    
+		    <span class="subheading">路在脚下，心向远方</span>
                 </div>
             </div>
         </div>
@@ -195,153 +176,150 @@
 
 
 
-
-<article>
-    <div class="container">
-        <div class="row">
-
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                
-                <header>
-                    <h2>TOC</h2>
-                </header>
-                
-                
-                <p>Z国的货币系统包含面值1元、4元、16元、64元共计4种硬币，以及面值1024元的纸币。现在小Y使用1024元的纸币购买了一件价值为N N(0&lt;N≤1024)的商品，请问最少他会收到多少硬币？
-输入描述:
-一行，包含一个数N。
-输出描述:
-一行，包含一个数，表示最少收到的硬币数。</p>
-
-<pre><code class="language-python">N = int(input())
-n = 1024 - N
-count = 0
-if(n&gt;=64):
-    count += n//64
-    n = n%64
-if(n&lt;64 and n&gt;=16):
-    count += n//16
-    n = n%16
-if(n&lt;16 and n&gt;=4):
-    count += n//4
-    n = n%4
-if(n&lt;4 and n&gt;=1):
-    count += n
-    n = 0
-if(n==0):
-    print(count)
-</code></pre>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://pengfeierzhang-hub.github.io/"><img src="/img/favicon.png" />flyer的博客</a></span>
+  
+<div class="container">
+    <div class="row">
         
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+<div class="post-preview">
+    <a href="https://pengfeierzhang-hub.github.io/post/slide_window/">
+        <h2 class="post-title">
+            滑动窗口的技巧解题
+        </h2>
+	
+        <h3 class="post-subtitle">
+            leetcode题
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            讲述滑动窗口的一些解题技巧
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by      &#34;flyer&#34; Thursday, April 9, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+
+            
+
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+            
+                
+            
+                
+            
+        </div>
+    </section>
+    
+
+    
+	
+    <section class="visible-md visible-lg">
+	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <a href="/top/about">
+               <img src="/img/cameral.jpg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Software Developer, Open Source Enthusiast and Life Adventurer</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href='/tags/algorithm/index.xml' rel="alternate" type="application/rss+xml" title="flyer的博客" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="/your%20wechat%20qr%20code%20image">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               
+            
+            
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FRIENDS</h5>
+        <ul class="list-inline">
+            
+            <li><a target="_blank" href="/">pengfei的博客</a></li>
+            
+        </ul>
+    </section>
+    
+
+    
+    
+</div>
+
 	</div>
 </div>
-<script type="text/javascript" src="/js/reward.js"></script>
 
-                
-
-                <hr>
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/post/entropy/" data-toggle="tooltip" data-placement="top" title="交叉熵">&larr;
-                            Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/post/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-toggle="tooltip" data-placement="top" title="动态规划的思想">Next
-                            Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-                
-<div id="disqus-comment"></div>
-
-
-
-            </div>
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                </section>
-                
-
-                
-                
-                <section>
-                    <hr>
-                    <h5>FRIENDS</h5>
-                    <ul class="list-inline">
-                        
-                        <li><a target="_blank" href="https://pengfeierzhang-hub.github.io/">pengfei的博客</a></li>
-                        
-                    </ul>
-                </section>
-                
-            </div>
-        </div>
-    </div>
-</article>
 
 
 
@@ -353,7 +331,7 @@ if(n==0):
                 <ul class="list-inline text-center">
                    
                    <li>
-                       <a href='' rel="alternate" type="application/rss+xml" title="flyer的博客" >
+                       <a href='/tags/algorithm/index.xml' rel="alternate" type="application/rss+xml" title="flyer的博客" >
                            <span class="fa-stack fa-lg">
                                <i class="fa fa-circle fa-stack-2x"></i>
                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>

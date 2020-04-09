@@ -6,10 +6,19 @@
     <description>Recent content on flyer的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Apr 2020 00:14:25 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pengfeierzhang-hub.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>滑动窗口的技巧解题</title>
+      <link>https://pengfeierzhang-hub.github.io/post/slide_window/</link>
+      <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/slide_window/</guid>
+      <description>什么是滑动窗口？ 滑动窗口在算法题中的应用主要是依靠双指针来实现。在滑动窗口类型的问题中都会有两个指针。一个用于延伸现有窗口的 right指针，</description>
+    </item>
     
     <item>
       <title>About</title>
