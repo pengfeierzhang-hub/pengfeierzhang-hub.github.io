@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="前缀和数组" />
+    <meta property="og:title" content="前缀和数组" />
+    <meta property="twitter:title" content="前缀和数组" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="张鹏飞, 张鹏飞的网络日志, 张鹏飞的博客, Zhangpengfei Blog, 博客, 个人网站">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>404 Page not found-张鹏飞的博客 | pengfeierzhang Blog</title>
+    <title>前缀和数组-张鹏飞的博客 | pengfeierzhang Blog</title>
 
-    <link rel="canonical" href="/404.html">
+    <link rel="canonical" href="/post/%E5%89%8D%E7%BC%80%E5%92%8C%E6%95%B0%E7%BB%84/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -164,14 +164,41 @@
 
 
 
-<header class="intro-header" style="background-image: url('/img/lake.jpeg')">
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/kanas_lake.jpeg')
+    }
+</style>
+<header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>flyer的博客 </h1>
-                    
-		    <span class="subheading">路在脚下，心向远方</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/algorithm" title="algorithm">
+                            algorithm
+                        </a>
+                        
+                        <a class="tag" href="/tags/data-structure" title="data structure">
+                            data structure
+                        </a>
+                        
+                    </div>
+                    <h1>前缀和数组</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            fly
+                         
+                        on 
+                        Monday, January 1, 0001
+                        
+                        
+                        
+                    </span>
                 </div>
             </div>
         </div>
@@ -181,22 +208,165 @@
 
 
 
-<header class="intro-header" style="background-image: url('/img/404-bg.jpg')">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<div class="site-heading" id="tag-heading">
-					<h1>404</h1>
-					<span class="subheading">你来到了没有知识的荒原 :(</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
+<article>
+    <div class="container">
+        <div class="row">
 
-<script>
-	document.body.classList.add('page-fullscreen');
-</script>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#一维前缀和数组">一维前缀和数组</a></li>
+<li><a href="#二维前缀和数组">二维前缀和数组</a>
+<ul>
+<li><a href="#方法一-容斥定理">方法一：容斥定理</a></li>
+<li><a href="#方法二-基于一维前缀和的累加">方法二：基于一维前缀和的累加</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h4 id="一维前缀和数组">一维前缀和数组</h4>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+int main(int argc, char *argv[]) {
+	vector&lt;int&gt; arr = {1, 2, 3, 4, 5};
+	int n = arr.size();
+	vector&lt;int&gt; sum(n, 0);
+	sum[0] = arr[0];
+	for(int i=1; i&lt;n; i++){
+		sum[i] = sum[i-1] + arr[i];
+		cout&lt;&lt;sum[i]&lt;&lt;&quot; &quot;;
+	}
+	
+	//如果要是求（i，j）之间的元素和
+	//int res = sum[j]-sum[i-1]	
+}
+</code></pre>
+
+<h4 id="二维前缀和数组">二维前缀和数组</h4>
+
+<h5 id="方法一-容斥定理">方法一：容斥定理</h5>
+
+<pre><code class="language-c++">for(int i=1;i&lt;row;i++) num[i][0]=num[i-1][0]+(pizza[i][0]);
+        for(int i=1;i&lt;col;i++) num[0][i]=num[0][i-1]+(pizza[0][i]);
+        for(int i=1;i&lt;row;i++) for(int j=1;j&lt;col;j++)
+                num[i][j]=num[i-1][j]+num[i][j-1]-num[i-1][j-1]+(pizza[i][j]);
+</code></pre>
+
+<h5 id="方法二-基于一维前缀和的累加">方法二：基于一维前缀和的累加</h5>
+
+<pre><code class="language-c++">for(int i=0;i&lt;row;i++){
+    if(pizza[i][0]==1) num[i][0] = 1;
+    for(int j=1;j&lt;col;j++){
+        num[i][j] = num[i][j-1] + (pizza[i][j]);
+    }  
+}
+for(int i=1;i&lt;row;i++){
+    for(int j=0;j&lt;col;j++){
+        num[i][j] = num[i][j] + num[i-1][j];
+    }  
+}
+</code></pre>
+
+<p>但是上面求出的num数组中的每一个元素num[i][j]表示的是以左上角（0，0）右下角坐标为（i，j）的矩阵中所有元素的和。
+如果要求以左上角（x,y）右下角（i，j）的矩阵中所有元素的和。则按接着如下计算：</p>
+
+<pre><code class="language-c++">num[i][j]-num[x-1][j]-num[i][y-1]+num[x-1][j-1]
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-toggle="tooltip" data-placement="top" title="数据处理">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/myblog/" data-toggle="tooltip" data-placement="top" title="python的鸭子类型">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/algorithm" title="algorithm">
+                            algorithm
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://pengfeierzhang-hub.github.io/">pengfei的博客</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
 
 
 
