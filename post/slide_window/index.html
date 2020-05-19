@@ -236,7 +236,16 @@
 <ul>
 <li><a href="#leetcode-209-长度最小的子数组">leetcode 209 长度最小的子数组</a></li>
 </ul></li>
-<li><a href="#维持滑动窗口的数据结构">维持滑动窗口的数据结构</a></li>
+<li><a href="#维持滑动窗口的数据结构">维持滑动窗口的数据结构</a>
+<ul>
+<li><a href="#维护滑动窗口中的最值-使用优先队列">维护滑动窗口中的最值: 使用优先队列</a>
+<ul>
+<li><a href="#c-的优先队列-prority-queue-大顶堆-set-小顶-堆-multiset-小顶堆">C++的优先队列:prority_queue (大顶堆), set（小顶  堆）, multiset（小顶堆）</a></li>
+<li><a href="#举个例子-1438-绝对差不超过限制的最长连续子数组-https-leetcode-cn-com-problems-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit"><a href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">举个例子: 1438. 绝对差不超过限制的最长连续子数组</a></a></li>
+</ul></li>
+<li><a href="#维护滑动窗口的数据结构之双端队列">维护滑动窗口的数据结构之双端队列</a></li>
+</ul></li>
+<li><a href="#小结">小结：</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -293,65 +302,84 @@ public:
 
 <h3 id="维持滑动窗口的数据结构">维持滑动窗口的数据结构</h3>
 
-<p>有的滑动窗口问题可以直接记录左指针和右指针，但是有的滑动窗口需要一个一个数据结构来进行维护以便获得窗口内的值。
-- 维护滑动窗口中的最值: 使用优先队列
-  - <code>Java的优先队列: PriorityQueue（默认是小顶堆）</code>
-    Java的优先队列，可以使用remove函数直接删除一个指定值的函数，而不一定是对头或者是队尾，因此较c++简单，针对该题，我们在移动左指针的时候，也需要将队列中上一个左指针指向的元素进行删除，因次使用remove比较方便，要是使用c++的话，则需要为每一个入队的元素增加一个下标，以便于删除的时候可以根据其索引进行删除。下面是c++的实现。
-    <code>java
-    PriorityQueue&lt;Integer&gt; min_q = new PriorityQueue&lt;&gt;(); //(1) 小顶堆
-    PriorityQueue&lt;Integer&gt; max_q = new PriorityQueue&lt;&gt;((a,b)-&gt;b-a);//(2) 大顶堆
-</code>
-    但是此处可以有一个技巧，式子(1) 通过入队相反数，也可以进行模拟大顶堆。
-  - <code>C++的优先队列:prority_queue (大顶堆), set（小顶  堆）, multiset（小顶堆）</code>
-    在c++中堆只能保证堆顶的根节点元素是最值，根节点的左右子树之间是不能保证有序的。如果要实现删除任意元素的方法，首先要查找到该元素，而查找的时间复杂度是O(N)的，效率太低，因此没有实现。如果使用c++的话，需求用一个平衡树可以满足，比如C++ STL里面的set。既可以维护最值，又可以进行删除任意一个元素。考虑到含有重复元素，因此可以使用multiset<T>, 由于c++的set和map底层都是红黑树实现，因此set和map也可以作为一种特殊的堆即可以随意删除指定元素的优先队列。但是注意multiset中有多个相同的元素的话，则删除一个指定的元素值，则会将该元素值全部删除。因此为了处理该问题可以使用multiset的erase(传入索引)，注意erase的函数参数传入的应该是一个指针或者迭代器。
-    <code>c++
-    priority_queue&lt;int&gt; max_q; //(1) 大顶堆
-    priority_queue&lt;int, vector&lt;int&gt;,greater&lt;int&gt;&gt; min_q; //（2）小顶堆
-</code>
-    同样，此处的可以使用式子(1)通过如果如果相反数，也可以进行模拟小顶堆。
-    - <a href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">举个例子: 1438. 绝对差不超过限制的最长连续子数组</a>
-    java实现
-    <code>java
-    public int longestSubarray(int[] nums, int limit) {
-        PriorityQueue&lt;Integer&gt; min_q = new PriorityQueue&lt;&gt;();
-        PriorityQueue&lt;Integer&gt; max_q = new PriorityQueue&lt;&gt;((a,b)-&gt;b-a);
-        int left = 0;
-        int res = 0;
-        for(int i =0;i&lt;nums.length;i++){
-            min_q.add(nums[i]);
-            max_q.add(nums[i]);
-            while(!min_q.isEmpty()&amp;&amp;!max_q.isEmpty()&amp;&amp;(max_q.peek()-min_q.peek())&gt;limit){
-                min_q.remove(nums[left]);
-                max_q.remove(nums[left]);
-                left++;
-            }
-            res = Math.max(res, i-left+1);
-        }
-        return res;
-    }
-</code>
-    c++实现
-    <code>c++
-    int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
-        int res = 0;
-        int left = 0;
-        multiset&lt;int&gt; q;
-        for(int i=0;i&lt;nums.size();i++){
-            q.insert(nums[i]);
-            //当条件不满足的时候开始移动左指针
-            while(((*q.rbegin())-(*q.begin()))&gt;limit){
-                q.erase(q.find(nums[left]));
-                //左指针开始移动
-                left++;
-            }
-            res = max(res, i-left+1);
-        }
-        return res;
-    }
-</code>
-- 双端队列维护滑动窗口</p>
+<p>有的滑动窗口问题可以直接记录左指针和右指针，但是有的滑动窗口需要一个一个数据结构来进行维护以便获得窗口内的值。</p>
 
-<p>小结：上面这个代码结构可以简单总结为一个小的模板。外层一个循环（for循环或者while循环）控制右指针的移动，内层一个while循环控制左指针的移动。</p>
+<h4 id="维护滑动窗口中的最值-使用优先队列">维护滑动窗口中的最值: 使用优先队列</h4>
+
+<p>##### Java的优先队列: PriorityQueue（默认是小顶堆）</p>
+
+<ul>
+<li><p>Java的优先队列，可以使用remove函数直接删除一个指定值的函数，而不一定是对头或者是队尾，因此较c++简单，针对该题，我们在移动左指针的时候，也需要将队列中上一个左指针指向的元素进行删除，因次使用remove比较方便，要是使用c++的话，则需要为每一个入队的元素增加一个下标，以便于删除的时候可以根据其索引进行删除。</p>
+
+<pre><code class="language-java">PriorityQueue&lt;Integer&gt; min_q = new PriorityQueue&lt;&gt;(); //(1) 小顶堆
+PriorityQueue&lt;Integer&gt; max_q = new PriorityQueue&lt;&gt;((a,b)-&gt;b-a);//(2) 大顶堆
+</code></pre></li>
+
+<li><p>但是此处可以有一个技巧，式子(1) 通过入队相反数，也可以进行模拟大顶堆。</p></li>
+</ul>
+
+<h5 id="c-的优先队列-prority-queue-大顶堆-set-小顶-堆-multiset-小顶堆">C++的优先队列:prority_queue (大顶堆), set（小顶  堆）, multiset（小顶堆）</h5>
+
+<ul>
+<li><p>在c++中堆只能保证堆顶的根节点元素是最值，根节点的左右子树之间是不能保证有序的。如果要实现删除任意元素的方法，首先要查找到该元素，而查找的时间复杂度是O(N)的，效率太低，因此没有实现。如果使用c++的话，需求用一个平衡树可以满足，比如C++ STL里面的set。既可以维护最值，又可以进行删除任意一个元素。考虑到含有重复元素，因此可以使用multiset<T>, 由于c++的set和map底层都是红黑树实现，因此set和map也可以作为一种特殊的堆即可以随意删除指定元素的优先队列。但是注意multiset中有多个相同的元素的话，则删除一个指定的元素值，则会将该元素值全部删除。因此为了处理该问题可以使用multiset的erase(传入索引)，注意erase的函数参数传入的应该是一个指针或者迭代器。</p>
+
+<pre><code class="language-c++">priority_queue&lt;int&gt; max_q; //(1) 大顶堆
+priority_queue&lt;int, vector&lt;int&gt;,greater&lt;int&gt;&gt; min_q; //（2）小顶堆
+</code></pre>
+
+<p>同样，此处的可以使用式子(1)通过如果如果相反数，也可以进行模拟小顶堆。</p></li>
+</ul>
+
+<h5 id="举个例子-1438-绝对差不超过限制的最长连续子数组-https-leetcode-cn-com-problems-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit"><a href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">举个例子: 1438. 绝对差不超过限制的最长连续子数组</a></h5>
+
+<ul>
+<li><p>java实现</p>
+
+<pre><code class="language-java">public int longestSubarray(int[] nums, int limit) {
+    PriorityQueue&lt;Integer&gt; min_q = new PriorityQueue&lt;&gt;();
+    PriorityQueue&lt;Integer&gt; max_q = new PriorityQueue&lt;&gt;((a,b)-&gt;b-a);
+    int left = 0;
+    int res = 0;
+    for(int i =0;i&lt;nums.length;i++){
+        min_q.add(nums[i]);
+        max_q.add(nums[i]);
+        while(!min_q.isEmpty()&amp;&amp;!max_q.isEmpty()&amp;&amp;(max_q.peek()-min_q.peek())&gt;limit){
+            min_q.remove(nums[left]);
+            max_q.remove(nums[left]);
+            left++;
+        }
+        res = Math.max(res, i-left+1);
+    }
+    return res;
+}
+</code></pre></li>
+
+<li><p>c++实现</p>
+
+<pre><code class="language-c++">int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
+    int res = 0;
+    int left = 0;
+    multiset&lt;int&gt; q;
+    for(int i=0;i&lt;nums.size();i++){
+        q.insert(nums[i]);
+        //当条件不满足的时候开始移动左指针
+        while(((*q.rbegin())-(*q.begin()))&gt;limit){
+            q.erase(q.find(nums[left]));
+            //左指针开始移动
+            left++;
+        }
+        res = max(res, i-left+1);
+    }
+    return res;
+}
+</code></pre></li>
+</ul>
+
+<h4 id="维护滑动窗口的数据结构之双端队列">维护滑动窗口的数据结构之双端队列</h4>
+
+<h3 id="小结">小结：</h3>
+
+<p>上面这个代码结构可以简单总结为一个小的模板。外层一个循环（for循环或者while循环）控制右指针的移动，内层一个while循环控制左指针的移动。</p>
 
 
                 
