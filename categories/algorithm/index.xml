@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>深度搜索的思想</title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/</guid>
+      <description>深度搜索问题的代码模板 对于if的判定条件，如果判定过程比较复杂的话，要封装成isOk()k函数，一般来说深度搜索的问题，关键点在于isOk函</description>
+    </item>
+    
+    <item>
       <title>滑动窗口的技巧解题</title>
       <link>https://pengfeierzhang-hub.github.io/post/slide_window/</link>
       <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
