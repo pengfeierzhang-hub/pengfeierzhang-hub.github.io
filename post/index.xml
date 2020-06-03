@@ -66,6 +66,15 @@
     </item>
     
     <item>
+      <title>堆排序的建堆过程</title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BB%BA%E5%A0%86%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BB%BA%E5%A0%86%E8%BF%87%E7%A8%8B/</guid>
+      <description>堆排序的第一步：建堆过程时间度是O(n)。 以升序为例，我们知道对于堆排序的第一步，是要先建立一个大顶堆。代码如下: void adjustHeap(vector&amp;lt;int&amp;gt;&amp;amp; arr, int parent, int length){ int temp = arr</description>
+    </item>
+    
+    <item>
       <title>数据处理</title>
       <link>https://pengfeierzhang-hub.github.io/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

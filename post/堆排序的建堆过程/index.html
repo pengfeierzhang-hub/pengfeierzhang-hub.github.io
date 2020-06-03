@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="贪心" />
-    <meta property="og:title" content="贪心" />
-    <meta property="twitter:title" content="贪心" />
+    <meta name="title" content="堆排序的建堆过程" />
+    <meta property="og:title" content="堆排序的建堆过程" />
+    <meta property="twitter:title" content="堆排序的建堆过程" />
     
 
     
-    <meta name="description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。">
-    <meta property="og:description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。" />
-    <meta property="twitter:description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。" />
+    <meta name="description" content="分析建堆的时间复杂度">
+    <meta property="og:description" content="分析建堆的时间复杂度" />
+    <meta property="twitter:description" content="分析建堆的时间复杂度" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="张鹏飞, 张鹏飞的网络日志, 张鹏飞的博客, Zhangpengfei Blog, 博客, 个人网站">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>贪心-张鹏飞的博客 | pengfeierzhang Blog</title>
+    <title>堆排序的建堆过程-张鹏飞的博客 | pengfeierzhang Blog</title>
 
-    <link rel="canonical" href="/post/%E8%B4%AA%E5%BF%83/">
+    <link rel="canonical" href="/post/%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BB%BA%E5%A0%86%E8%BF%87%E7%A8%8B/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -167,7 +167,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/lake.jpeg')
+        background-image: url('/img/kanas_lake.jpeg')
     }
 </style>
 <header class="intro-header">
@@ -177,16 +177,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/algorithm" title="algorithm">
+                            algorithm
+                        </a>
+                        
+                        <a class="tag" href="/tags/data-structure" title="data structure">
+                            data structure
+                        </a>
+                        
                     </div>
-                    <h1>贪心</h1>
+                    <h1>堆排序的建堆过程</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by 
                         
-                                flyer的博客
+                            fly
                          
                         on 
-                        Wednesday, April 8, 2020
+                        Monday, January 1, 0001
                         
                         
                         
@@ -214,32 +222,56 @@
                 <header>
                     <h2>TOC</h2>
                 </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#堆排序的第一步-建堆过程时间度是o-n">堆排序的第一步：建堆过程时间度是O(n)。</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                 
                 
-                <p>Z国的货币系统包含面值1元、4元、16元、64元共计4种硬币，以及面值1024元的纸币。现在小Y使用1024元的纸币购买了一件价值为N N(0&lt;N≤1024)的商品，请问最少他会收到多少硬币？
-输入描述:
-一行，包含一个数N。
-输出描述:
-一行，包含一个数，表示最少收到的硬币数。</p>
 
-<pre><code class="language-python">N = int(input())
-n = 1024 - N
-count = 0
-if(n&gt;=64):
-    count += n//64
-    n = n%64
-if(n&lt;64 and n&gt;=16):
-    count += n//16
-    n = n%16
-if(n&lt;16 and n&gt;=4):
-    count += n//4
-    n = n%4
-if(n&lt;4 and n&gt;=1):
-    count += n
-    n = 0
-if(n==0):
-    print(count)
+<h4 id="堆排序的第一步-建堆过程时间度是o-n">堆排序的第一步：建堆过程时间度是O(n)。</h4>
+
+<p>以升序为例，我们知道对于堆排序的第一步，是要先建立一个大顶堆。代码如下:</p>
+
+<pre><code class="language-c++">void adjustHeap(vector&lt;int&gt;&amp; arr, int parent, int length){
+    int temp = arr[parent];//寻找temp最终应该放的位置
+    while(parent*2+1&lt;length){
+        int left = parent*2+1;
+        if((left+1)&lt;length&amp;&amp;arr[left]&lt;arr[left+1])
+            left = left+1;
+        if(arr[left]&gt;temp){
+            arr[parent] = arr[left];
+            //更新parent
+            parent = left;
+        }else break;
+    }
+    arr[parent] = temp;
+}
+for(int i=arr.size()/2-1;i&gt;=0;i--){
+        adjustHeap(arr, i, arr.size());
+}
 </code></pre>
+
+<p>给定一个固定的序列，将其从下到上建成一个大顶堆的过程如下:
+假定堆以数组实现，建堆的过程，就是不断将一个完全二叉树进行调整使得该完全二叉树满足: 每一棵子树的根节点总是比其左子树和右子树的值大。这个调整过程主要是: 从第一个非叶子结点开始不断地从下往上调整（如果假定下标从0开始，则第一个非叶子结点的下标就是<code>arr.length/2-1</code>），故外循环是O(n)。针对每次调整，调整函数ajustHeap之所以里面加一个while, 主要是因为，针对当前的根节点parent,当和其左孩子和右孩子交换之后，有可能破坏了其左子树或者右孩子的堆结构，因此还要往下继续调整，也就是找到最初的arr[parent]最终应该放置的位置。由于该while循环中，针对parent结点，它在往下调整找合适位置的时候，总是找某一半的子树(每一次要么往左子树走，要么是往右子树走)，所以针对某一次调整，其调整的时间复杂度是树高: O(logn)。所以直观上从整体上来看，建堆的时间复杂度是外层的for循环乘内层的O(logn)的复杂度是：O(nlogn)。其实，这是不正确的。构建二叉堆是自下而上的构建，每一层的最大深度总是小于等于树的深度的，因此，该问题是叠加问题，不是递归问题。那么换个方式，假如我们自上而下建立二叉堆，那么插入每个节点都和树的深度有关，并且都是不断的把树折半来实现插入，因此是典型的递归，而非叠加。时间复杂度是O(nlogn)。
+下面给出证明过程：
+针对一棵完全二叉树，设树高为h, 则当前层元素最多$2^{x-1}$个，x为层数，由于从第一个非叶子结点进行调整，第一层的非叶子结点的层数也就是倒数第二层，因此开始调整的第一层的个数为$2^{h-2}$，对于该层只需要做一次线性比较就可以调整成功。依次往上考虑，对于倒数第二层，其结点的个数为$2^{h-3}$,其需要再往下调整的层数最多为2。故对于<code>第倒数x层</code>，其元素的个数为$2^{h-x}$, 其往下的比较次数和处理时间复杂度也就是往下的高度减1，即$x-1$。对于第1层，即倒数第h层，有1个元素，往下的调整的层数为$h-1$。设总的时间复杂度为S：
+$S = 1* (h-1)  + 2 * (h-2)  + 4*(h-3)  +&hellip;+ 2^{h-4} * 3 + 2^{h-3} *2+ 2^{h-2} <em>1$    <code>(1)</code>
+观察上式，属于等差数列和等比数列的乘积的累加和，可以使用裂项错位相减。
+将<code>(1)</code>乘以2得：
+$2S = 2</em>(h-1) +4*(h-2)&hellip;+ 2^{h-3} * 3 + 2^{h-2} *2+ 2^{h-1} *1$   <code>(2)</code>
+<code>(2)-(1)</code> = S = $-(h-1)+2 + 4 +&hellip;+2^{h-3}+2^{h-2} + 2^{h-1}$
+后面是一个等比数列，使用等比数列的求和公式$\frac{a_1-a_n * q}{1-q}$则$S = 2^h-2-h+1 = 2^h-h-1$。将h = logn带入得S = n - logn -1，故最终的时间复杂度为O(n-logn-1) = O(n)。</p>
 
 
                 
@@ -248,13 +280,13 @@ if(n==0):
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/entropy/" data-toggle="tooltip" data-placement="top" title="交叉熵">&larr;
+                        <a href="/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-toggle="tooltip" data-placement="top" title="数据处理">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-toggle="tooltip" data-placement="top" title="动态规划的思想">Next
+                        <a href="/post/%E5%89%8D%E7%BC%80%E5%92%8C%E6%95%B0%E7%BB%84/" data-toggle="tooltip" data-placement="top" title="前缀和数组">Next
                             Post &rarr;</a>
                     </li>
                     
