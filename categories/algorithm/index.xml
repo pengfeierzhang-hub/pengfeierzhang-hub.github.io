@@ -6,9 +6,46 @@
     <description>Recent content in Algorithm on flyer的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Thu, 09 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pengfeierzhang-hub.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>滑动窗口的技巧解题</title>
+      <link>https://pengfeierzhang-hub.github.io/post/slide_window/</link>
+      <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/slide_window/</guid>
+      <description>什么是滑动窗口？ 滑动窗口在算法题中的应用主要是依靠双指针来实现。在滑动窗口类型的问题中都会有两个指针。一个用于延伸现有窗口的 right指针，</description>
+    </item>
+    
+    <item>
+      <title>动态规划的思想</title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>通常解决并理解一个动态规划问题需要以下 4 个步骤： - 利用递归回溯解决问题 - 利用记忆表优化（自顶向下的动态规划） - 移除递归的部分（自底向上的动态</description>
+    </item>
+    
+    <item>
+      <title>贪心</title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E8%B4%AA%E5%BF%83/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E8%B4%AA%E5%BF%83/</guid>
+      <description>Z国的货币系统包含面值1元、4元、16元、64元共计4种硬币，以及面值1024元的纸币。现在小Y使用1024元的纸币购买了一件价值为N N(0</description>
+    </item>
+    
+    <item>
+      <title>交叉熵</title>
+      <link>https://pengfeierzhang-hub.github.io/post/entropy/</link>
+      <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/entropy/</guid>
+      <description>损失函数: 交叉熵 1.熵: 该概念了来源于信息论中，用来衡量信心的不确定程度。熵在信息论中也称为信息熵或者香农熵，熵越大代表不确定性越大。对所有</description>
+    </item>
     
     <item>
       <title>前缀和数组</title>
