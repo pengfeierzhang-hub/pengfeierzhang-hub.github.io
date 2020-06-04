@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="堆排序的建堆过程" />
-    <meta property="og:title" content="堆排序的建堆过程" />
-    <meta property="twitter:title" content="堆排序的建堆过程" />
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
     
 
     
-    <meta name="description" content="分析建堆的时间复杂度">
-    <meta property="og:description" content="分析建堆的时间复杂度" />
-    <meta property="twitter:description" content="分析建堆的时间复杂度" />
+    <meta name="description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="张鹏飞，程序员, 开源爱好者，生活探险家 | 这里是 张鹏飞 的博客，与你一起发现更大的世界。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="张鹏飞, 张鹏飞的网络日志, 张鹏飞的博客, Zhangpengfei Blog, 博客, 个人网站">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>堆排序的建堆过程-张鹏飞的博客 | pengfeierzhang Blog</title>
+    <title>张鹏飞的博客 | pengfeierzhang Blog</title>
 
-    <link rel="canonical" href="/post/%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BB%BA%E5%A0%86%E8%BF%87%E7%A8%8B/">
+    <link rel="canonical" href="/post/spring/java%E7%9A%84volatile/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -163,7 +163,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/kanas_lake.jpeg')
+        background-image: url('/img/lake.jpeg')
     }
 </style>
 <header class="intro-header">
@@ -173,21 +173,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/algorithm" title="algorithm">
-                            algorithm
-                        </a>
-                        
-                        <a class="tag" href="/tags/data-structure" title="data structure">
-                            data structure
-                        </a>
-                        
                     </div>
-                    <h1>堆排序的建堆过程</h1>
+                    <h1></h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by 
                         
-                            fly
+                                flyer的博客
                          
                         on 
                         Monday, January 1, 0001
@@ -224,11 +216,18 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#请讲述下volatile关键字">请讲述下volatile关键字</a></li>
+<li><a href="#什么叫做线程的上下文切换">什么叫做线程的上下文切换：</a></li>
+<li><a href="#从操作系统的角度来理解指令重排序-指令重排序参考-https-blog-csdn-net-weixin-30652879-article-details-101596931">从操作系统的角度来理解指令重排序<a href="https://blog.csdn.net/weixin_30652879/article/details/101596931">指令重排序参考</a></a>
 <ul>
-<li><a href="#堆排序的第一步-建堆过程时间度是o-n">堆排序的第一步：建堆过程时间度是O(n)。</a></li>
-<li><a href="#建堆过程">建堆过程</a></li>
-<li><a href="#证明过程">证明过程</a></li>
+<li><a href="#指令重排序的定义">指令重排序的定义</a></li>
+<li><a href="#首先需要看一下一个指令重排序的场景">首先需要看一下一个指令重排序的场景:</a></li>
+<li><a href="#探究原因">探究原因</a></li>
+<li><a href="#缓存一致性">缓存一致性</a></li>
+<li><a href="#重排序的原因">重排序的原因</a></li>
+<li><a href="#volatile和synchronized是如何实现阻止指令重排序的">volatile和synchronized是如何实现阻止指令重排序的</a></li>
+<li><a href="#重排序的分类">重排序的分类</a></li>
+<li><a href="#volatile是如何通过内存屏障来进制指令重排序的">volatile是如何通过内存屏障来进制指令重排序的。</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -237,49 +236,97 @@
                 
                 
 
-<h4 id="堆排序的第一步-建堆过程时间度是o-n">堆排序的第一步：建堆过程时间度是O(n)。</h4>
+<h3 id="请讲述下volatile关键字">请讲述下volatile关键字</h3>
 
-<p>以升序为例，我们知道对于堆排序的第一步，是要先建立一个大顶堆。代码如下:</p>
+<ul>
+<li>他是轻量的synchronized</li>
+<li>在多处理其开发中保证了共享变量的可见性</li>
+<li>可见性就是当一个线程进行修改一个共享变量的时候，另外一个线程能读到这个修改的值。保证将变量的更新操作通知到其他的线程。</li>
+<li>如果该关键字使用恰当，那么效率比synchronized较好，应为不会引起线程的上下文切换和调度。</li>
 
-<pre><code class="language-c++">void adjustHeap(vector&lt;int&gt;&amp; arr, int parent, int length){
-    int temp = arr[parent];//寻找temp最终应该放的位置
-    while(parent*2+1&lt;length){
-        int left = parent*2+1;
-        if((left+1)&lt;length&amp;&amp;arr[left]&lt;arr[left+1])
-            left = left+1;
-        if(arr[left]&gt;temp){
-            arr[parent] = arr[left];
-            //更新parent
-            parent = left;
-        }else break;
+<li><p>volatile 关键字能保证内存的可见性，但是不能保证原子性</p>
+
+<h3 id="什么叫做线程的上下文切换">什么叫做线程的上下文切换：</h3>
+
+<p>多线程会共同使用一组计算机上的CPU，而线程数大于给程序分配的CPU数量时，为了让各个线程都有执行的机会，就需要轮流使用CPU。利用时间片轮转的方式，CPU给每个任务都服务一定的时间，然后把当前任务的状态保存下来，在加载下一个任务后，继续服务下一个任务，这个过程叫做上下文切换。即对于单核CPU，CPU在一个时刻只能运行一个线程，当在运行一个线程的过程中转去运行另外一个线程，这个叫做线程上下文切换。</p>
+
+<h3 id="从操作系统的角度来理解指令重排序-指令重排序参考-https-blog-csdn-net-weixin-30652879-article-details-101596931">从操作系统的角度来理解指令重排序<a href="https://blog.csdn.net/weixin_30652879/article/details/101596931">指令重排序参考</a></h3>
+
+<h4 id="指令重排序的定义">指令重排序的定义</h4>
+
+<p>在虚拟机层面，**为了尽可能减少内存操作速度远慢于CPU运行速度所带来的CPU空置的影响，虚拟机会按照自己的一些规则(这规则后面再叙述)将程序编写顺序打乱——即写在后面的代码在时间顺序上可能会先执行，而写在前面的代码会后执行——以尽可能充分地利用CPU</p>
+
+<h4 id="首先需要看一下一个指令重排序的场景">首先需要看一下一个指令重排序的场景:</h4>
+
+<pre><code class="language-java">class ResortDemo {
+int a = 0;
+boolean flag = false;
+
+public void writer() {
+    a = 1;                   //1
+    flag = true;             //2
+}
+
+Public void reader() {
+    if (flag) {                //3
+        int i =  a * a;        //4
+        ……
     }
-    arr[parent] = temp;
 }
-for(int i=arr.size()/2-1;i&gt;=0;i--){
-        adjustHeap(arr, i, arr.size());
-}
-</code></pre>
+}  
+</code></pre></li>
+</ul>
 
-<h4 id="建堆过程">建堆过程</h4>
+<p>当两个线程 A 和 B，A 首先执行writer() 方法，随后 B 线程接着执行 reader() 方法。线程B在执行操作4时，能否看到线程 A 在操作1对共享变量 a 的写入？</p>
 
-<p>给定一个固定的序列，将其从下到上建成一个大顶堆的过程如下:
-假定堆以数组实现，建堆的过程，就是不断将一个完全二叉树进行调整使得该完全二叉树满足: 每一棵子树的根节点总是比其左子树和右子树的值大。这个调整过程主要是: 从第一个非叶子结点开始不断地从下往上调整（如果假定下标从0开始，则第一个非叶子结点的下标就是<code>arr.length/2-1</code>），故外循环是O(n)。针对每次调整，调整函数ajustHeap之所以里面加一个while, 主要是因为，针对当前的根节点parent,当和其左孩子和右孩子交换之后，有可能破坏了其左子树或者右孩子的堆结构，因此还要往下继续调整，也就是找到最初的arr[parent]最终应该放置的位置。由于该while循环中，针对parent结点，它在往下调整找合适位置的时候，总是找某一半的子树(每一次要么往左子树走，要么是往右子树走)，所以针对某一次调整，其调整的时间复杂度是树高: O(logn)。所以直观上从整体上来看，建堆的时间复杂度是外层的for循环乘内层的O(logn)的复杂度是：O(nlogn)。其实，这是不正确的。构建二叉堆是自下而上的构建，每一层的最大深度总是小于等于树的深度的，因此，该问题是叠加问题，不是递归问题。那么换个方式，假如我们自上而下建立二叉堆，那么插入每个节点都和树的深度有关，并且都是不断的把树折半来实现插入，因此是典型的递归，而非叠加。时间复杂度是O(nlogn)。</p>
+<p>答案是：不一定能看到。由于操作1和操作2没有数据依赖关系，编译器和处理器可以对这两个操作重排序；同样，操作3和操作4没有数据依赖关系，编译器和处理器也可以对这两个操作重排序。</p>
 
-<h4 id="证明过程">证明过程</h4>
+<h4 id="探究原因">探究原因</h4>
 
-<p>下面给出证明过程：
-针对一棵完全二叉树，设树高为h, 则当前层元素最多$2^{x-1}$个，x为层数，由于从第一个非叶子结点进行调整，第一层的非叶子结点的层数也就是倒数第二层，因此开始调整的第一层的个数为$2^{h-2}$，对于该层只需要做一次线性比较就可以调整成功。依次往上考虑，对于倒数第二层，其结点的个数为$2^{h-3}$,其需要再往下调整的层数最多为2。故对于<code>第倒数x层</code>，其元素的个数为$2^{h-x}$, 其往下的比较次数和处理时间复杂度也就是往下的高度减1，即$x-1$。对于第1层，即倒数第h层，有1个元素，往下的调整的层数为$h-1$。设总的时间复杂度为S：
-&gt;$S = 1* (h-1)  + 2 * (h-2)  + 4*(h-3)  +&hellip;+ 2^{h-4} * 3 + 2^{h-3} *2+ 2^{h-2} *1$    <code>(1)</code></p>
+<p>为了提升计算性能，CPU 从单核升级到了多核甚至用到了超线程技术最大化提高 CPU 的处理性能。CPU增加了高速缓存，操作系统增加了进程、线程，通过CPU时间片的切换最大化的提升CPU的使用率。
+通过高速缓存的存储交互很好的解决了处理器与内存的速度矛盾，但是也为计算机系统带来了更高的复杂度，因为它引入了一个新的问题，缓存一致性。</p>
 
-<p>观察上式，属于等差数列和等比数列的乘积的累加和，可以使用裂项错位相减。
-将<code>(1)</code>乘以2得：
-&gt; $2S = 2<em>(h-1) +4</em>(h-2)&hellip;+ 2^{h-3} * 3 + 2^{h-2} *2+ 2^{h-1} *1$   <code>(2)</code>
-<code>(2)-(1)</code> = S = $-(h-1)+2 + 4 +&hellip;+2^{h-3}+2^{h-2} + 2^{h-1}$</p>
+<h4 id="缓存一致性">缓存一致性</h4>
 
-<p>后面是一个等比数列，使用等比数列的求和公式
-&gt;$\frac{a_1-a_n * q}{1-q}$则$S = 2^h-2-h+1 = 2^h-h-1$。</p>
+<p>同一份数据可能会被缓存到多个 CPU 中，如果在不同 CPU 中运行的不同线程看到同一份内存的缓存值不一样就会存在缓存不一致的问题。为了达到数据访问的一致，需要各个处理器在访问缓存时遵循一些协议，在读写时根据协议来操作，常见的协议有MSI，MESI，MOSI 等。最常见的就是 MESI 协议。简单介绍下MESI协议:
+MESI 表示缓存行的四种状态，分别是
+　　1. M(Modify) 表示共享数据只缓存在当前 CPU 缓存中，
+并且是被修改状态，也就是缓存的数据和主内存中的数
+据不一致
+　　2. E(Exclusive) 表示缓存的独占状态，数据只缓存在当前
+CPU 缓存中，并且没有被修改
+　　1. S(Shared) 表示数据可能被多个 CPU 缓存，并且各个缓存中的数据和主内存数据一致
+　　2. I(Invalid) 表示缓存已经失效
+对于 MESI 协议，从 CPU 读写角度来说会遵循以下原则：
+　　CPU 读请求：缓存处于 M、E、S 状态都可以被读取，I 状态 CPU 只能从主存中读取数据。
+　　CPU 写请求：缓存处于 M、E 状态才可以被写。对于 S 状态的写，需要将其他 CPU 中缓存行置为无效才可写</p>
 
-<p>将h = logn带入得S = n - logn -1，故最终的时间复杂度为O(n-logn-1) = O(n)。</p>
+<h4 id="重排序的原因">重排序的原因</h4>
+
+<p>虽然MESI可以保证缓存一致性，但是也是会存在一定的问题。基于上图中的原因，CPU又引入了storeBuffers的缓冲区。CPU0 只需要在写入共享数据时，直接把数据写入到 storebufferes 中，同时发送 invalidate 消息，然后继续去处理其</p>
+
+<p>他指令。当收到其他所有 CPU 发送了 invalidate acknowledge 消息时，再将 store bufferes 中的数据数据存储至 cache line中。最后再从缓存行同步到主内存。    重新看上面的代码: 当执行1操作时，a的状态从S-&gt;M,此时，线程A会先把变更写入到storebuffers，然后发送invalidate去异步通知其他CPU线程，紧接着就执行了下面的2操作。
+此时，可能1的变更还在storebuffers中，并未提交到主内存。什么时候会提交到主内存，也不确定。
+所以，线程B调用read方法可能会出现，看到了flag的变更，但是看不到a的变更，就出现了重排序的现象。</p>
+
+<h4 id="volatile和synchronized是如何实现阻止指令重排序的">volatile和synchronized是如何实现阻止指令重排序的</h4>
+
+<p>Java提供了两个关键字volatile和synchronized来<strong>保证多线程之间操作的有序性</strong>,volatile关键字本身通过<strong>加入内存屏障</strong>来禁止指令的重排序，而synchronized关键字通过一个变量在同一时间只允许有一个线程对其进行加锁的规则来实现。在单线程程序中，不会发生“指令重排”和“工作内存和主内存同步延迟”现象，只在多线程程序中出现。</p>
+
+<h4 id="重排序的分类">重排序的分类</h4>
+
+<p>1）编译器优化的重排序。编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+2）指令级并行的重排序。现代处理器采用了指令级并行技术（Instruction-LevelParallelism，ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。
+3）内存系统的重排序。由于处理器使用缓存和读/写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。</p>
+
+<h4 id="volatile是如何通过内存屏障来进制指令重排序的">volatile是如何通过内存屏障来进制指令重排序的。</h4>
+
+<p>被volatile修饰的变量在编译成字节码文件时会多个lock指令，该指令在执行过程中会生成相应的内存屏障，以此来解决可见性跟重排序的问题。
+内存屏障的作用：
+1.在有内存屏障的地方，会禁止指令重排序，即屏障下面的代码不能跟屏障上面的代码交换执行顺序。
+2.在有内存屏障的地方，线程修改完共享变量以后会马上把该变量从本地内存写回到主内存，并且让其他线程本地内存中该变量副本失效（使用MESI协议）。
+。Lock前缀，Lock不是一种内存屏障，但是它能完成类似内存屏障的功能。Lock会对CPU总线和高速缓存加锁，可以理解为CPU指令级的一种锁。类似于Lock指令。具体的执行上，它先对总线和缓存加锁，然后执行后面的指令，在Lock锁住总线的时候，其他CPU的读写请求都会被阻塞，直到锁释放。最后释放锁后会把高速缓存中的脏数据全部刷新回主内存，且这个写回内存的操作会使在其他CPU里缓存了该地址的数据无效。
+<a href="关于volatile的详细参考">https://www.cnblogs.com/yaowen/p/11240540.html</a></p>
 
 
                 
@@ -288,13 +335,13 @@ for(int i=arr.size()/2-1;i&gt;=0;i--){
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" data-toggle="tooltip" data-placement="top" title="数据处理">&larr;
+                        <a href="/post/%E5%89%8D%E7%BC%80%E5%92%8C%E6%95%B0%E7%BB%84/" data-toggle="tooltip" data-placement="top" title="前缀和数组">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/post/%E5%89%8D%E7%BC%80%E5%92%8C%E6%95%B0%E7%BB%84/" data-toggle="tooltip" data-placement="top" title="前缀和数组">Next
+                        <a href="/post/myblog/" data-toggle="tooltip" data-placement="top" title="python的鸭子类型">Next
                             Post &rarr;</a>
                     </li>
                     

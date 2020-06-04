@@ -6,10 +6,19 @@
     <description>Recent content in 编程语言 on flyer的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Dec 2019 18:16:21 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pengfeierzhang-hub.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bean装载的方式</title>
+      <link>https://pengfeierzhang-hub.github.io/post/bean%E7%9A%84%E8%A3%85%E8%BD%BD/</link>
+      <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/bean%E7%9A%84%E8%A3%85%E8%BD%BD/</guid>
+      <description>将bean进行注册到spring容器中的三种方式 创建一个bean即一个简单的Java对象实体类，或者认为是将一个bean装配到IOC容器中，</description>
+    </item>
     
     <item>
       <title>python的鸭子类型</title>
