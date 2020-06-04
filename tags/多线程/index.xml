@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多线程 on flyer的博客</title>
+    <link>https://pengfeierzhang-hub.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+    <description>Recent content in 多线程 on flyer的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://pengfeierzhang-hub.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>volatile关键字</title>
+      <link>https://pengfeierzhang-hub.github.io/post/spring/java%E7%9A%84volatile/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/spring/java%E7%9A%84volatile/</guid>
+      <description>请讲述下volatile关键字 他是轻量的synchronized 在多处理其开发中保证了共享变量的可见性 可见性就是当一个线程进行修改一个共享变</description>
+    </item>
+    
+  </channel>
+</rss>

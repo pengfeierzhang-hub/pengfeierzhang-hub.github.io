@@ -20,5 +20,14 @@
       <description>将bean进行注册到spring容器中的三种方式 创建一个bean即一个简单的Java对象实体类，或者认为是将一个bean装配到IOC容器中，</description>
     </item>
     
+    <item>
+      <title>volatile关键字</title>
+      <link>https://pengfeierzhang-hub.github.io/post/spring/java%E7%9A%84volatile/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/spring/java%E7%9A%84volatile/</guid>
+      <description>请讲述下volatile关键字 他是轻量的synchronized 在多处理其开发中保证了共享变量的可见性 可见性就是当一个线程进行修改一个共享变</description>
+    </item>
+    
   </channel>
 </rss>
