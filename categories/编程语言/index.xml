@@ -29,23 +29,5 @@
       <description>请讲述下volatile关键字 他是轻量的synchronized 在多处理其开发中保证了共享变量的可见性 可见性就是当一个线程进行修改一个共享变</description>
     </item>
     
-    <item>
-      <title>python的鸭子类型</title>
-      <link>https://pengfeierzhang-hub.github.io/post/myblog/</link>
-      <pubDate>Mon, 02 Dec 2019 18:16:21 +0800</pubDate>
-      
-      <guid>https://pengfeierzhang-hub.github.io/post/myblog/</guid>
-      <description>什么是鸭子类型 一个数据类型只要他具有某种行为，它就认是某种类型，它看起来像鸭子，它就是鸭子</description>
-    </item>
-    
-    <item>
-      <title>数据处理</title>
-      <link>https://pengfeierzhang-hub.github.io/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://pengfeierzhang-hub.github.io/post/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/</guid>
-      <description>使用pandas进行数据处理</description>
-    </item>
-    
   </channel>
 </rss>

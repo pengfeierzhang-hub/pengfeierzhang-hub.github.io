@@ -220,10 +220,14 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
 <li><a href="#深度搜索问题的代码模板">深度搜索问题的代码模板</a></li>
 <li><a href="#矩阵深搜的模板牢记于心">矩阵深搜的模板牢记于心:</a></li>
+<li><a href="#全排列问题">全排列问题</a>
+<ul>
+<li><a href="#问题定义-求一个集合的所有全排列">问题定义：求一个集合的所有全排列</a></li>
+<li><a href="#方法一-使用for循环深度搜索">方法一： 使用for循环深度搜索</a></li>
+<li><a href="#方法二-使用交换思想深度搜索">方法二：使用交换思想深度搜索</a></li>
+<li><a href="#小结">小结</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -232,7 +236,7 @@
                 
                 
 
-<h4 id="深度搜索问题的代码模板">深度搜索问题的代码模板</h4>
+<h3 id="深度搜索问题的代码模板">深度搜索问题的代码模板</h3>
 
 <ol>
 <li>对于if的判定条件，如果判定过程比较复杂的话，要封装成isOk()k函数，一般来说深度搜索的问题，关键点在于isOk函数的创建。</li>
@@ -242,13 +246,88 @@
 <li>当在多选择深度搜索的时候，一个for循环里面嵌套递归函数，在深度搜索寻找到一个合适的递归函数返回值之后，考虑是否需要直接将该正确结果返回，并结束该循环。</li>
 </ol>
 
-<h4 id="矩阵深搜的模板牢记于心">矩阵深搜的模板牢记于心:</h4>
+<h3 id="矩阵深搜的模板牢记于心">矩阵深搜的模板牢记于心:</h3>
 
 <ul>
 <li>外层循环</li>
 <li>得到新的状态</li>
 <li>进行判断当前的状态是否合法</li>
 <li>如果合法进行递归深搜</li>
+</ul>
+
+<h3 id="全排列问题">全排列问题</h3>
+
+<h4 id="问题定义-求一个集合的所有全排列">问题定义：求一个集合的所有全排列</h4>
+
+<h4 id="方法一-使用for循环深度搜索">方法一： 使用for循环深度搜索</h4>
+
+<pre><code class="language-c++">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; res;
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) {
+        vector&lt;int&gt; ans;
+        vector&lt;int&gt; vis(nums.size(), 0);
+        dfs(ans, vis, nums);
+        return res; 
+    }
+    void dfs(vector&lt;int&gt;&amp; ans, vector&lt;int&gt;&amp; vis, vector&lt;int&gt; nums){
+        if(ans.size()==nums.size()){
+            res.push_back(ans);
+        }
+        for(int i=0;i&lt;nums.size();i++){
+            if(!vis[i]){
+                ans.push_back(nums[i]);
+                vis[i] = 1;
+                dfs(ans, vis, nums);
+                ans.pop_back();
+                vis[i] = 0;
+            }
+        }
+    }
+};
+
+</code></pre>
+
+<h4 id="方法二-使用交换思想深度搜索">方法二：使用交换思想深度搜索</h4>
+
+<pre><code class="language-c++">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; res;
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) {
+        vector&lt;int&gt; vis(nums.size(), 0);
+        dfs(nums, 0);
+        return res; 
+    }
+    //k表示第几层
+    void dfs(vector&lt;int&gt;&amp; nums, int k){
+        if(k==nums.size()-1){
+            res.push_back(nums);
+            return;
+        }
+        int temp = 0;
+        for(int i=k;i&lt;nums.size();i++){
+            //交换
+            temp = nums[k];
+            nums[k] = nums[i];
+            nums[i] = temp;
+            dfs(nums, k+1);
+            //再次交换回来
+            temp = nums[k];
+            nums[k] = nums[i];
+            nums[i] = temp;
+        }       
+    }
+};
+
+</code></pre>
+
+<h4 id="小结">小结</h4>
+
+<ul>
+<li>递归树的构建</li>
+<li>对于for循环式深度搜索，该递归函数自带有递归出口，即当循环执行完之后结束</li>
+<li>标记数组的必要使用</li>
+<li>方法一的结果集合是针对原集合的元素顺序得出的全排列结果集合</li>
 </ul>
 
 
@@ -297,20 +376,8 @@
                         
                         
                         
-                        <a href="/tags/data-structure" title="data-structure">
-                            data-structure
-                        </a>
-                        
-                        
-                        
                         <a href="/tags/java" title="java">
                             java
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/python" title="python">
-                            python
                         </a>
                         
                         
