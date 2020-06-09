@@ -6,10 +6,19 @@
     <description>Recent content on flyer的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pengfeierzhang-hub.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>广度搜索的思想</title>
+      <link>https://pengfeierzhang-hub.github.io/post/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/</link>
+      <pubDate>Tue, 09 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pengfeierzhang-hub.github.io/post/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/</guid>
+      <description>广度搜索（BFS） 双向BFS</description>
+    </item>
     
     <item>
       <title>bean装载的方式</title>
